@@ -1,0 +1,163 @@
+DOWNLOADING LARAVEL PACKAGE WITH COMPOSER
+composer create-project laravel/laravel blog "10.*
+                        vendor/package  folerName version
+
+
+
+
+
+RUNNING LARAVEL PROJECT
+php artisan serve
+
+
+
+
+STATIC ROUTE
+routes/web.php (ဘယ် url ကို သွားရင် ဘာအလုပ်လုပ်မလဲဆိုတာ ရေး‌‌‌ပေးလို့ရ)
+Route::get("/parent/child", function() {
+    return "family";
+});
+
+Route::post() လည်း ရှိ‌သေး , html form ကနေ data ပို့ရင် အလုပ်လုပ် 
+
+Facade Class (facade လို့ ခေါ်တဲ့ oop design pattern သုံးထားတဲ့ class)
+facade class များကြည့်ရန် - /vendor/laravel/framework/src/illuminate/Support/Facade
+
+
+
+
+DYNAMIC ROUTE
+Route::get("/test/{id}", function($id) {
+    return "$id";
+});
+
+
+
+
+ROUTE NAMING AND REDIRECT
+Route::get('/articles/detail', function() {
+    return "Article Detail";
+}) -> name('articles.detail');
+
+Route::get('/articles/more', function() {
+    return redirect('/articles/detail');
+});
+
+Route::get('/articles/more', function() {
+    return redirect() -> route('articles.detail');
+});
+
+
+
+
+URL PATTERN CONVENTION
+/resource/action/id/sub-resource/sub-action
+
+resource (noun) - students, customers, products // should be plural
+action (verb) - add, update, delete, view
+id - unique identifier
+
+eg. /products/view/{id}/comments/add
+
+Wrong url pattern
+/customers/all/male/yangon
+True url pattern
+/customers?location=yangon&sex=male/list
+
+
+
+MODEL-VIEW-CONTROLLER (MVC)
+model = data managing part 
+view = UI managing part
+controller = managin request and respond data
+
+
+
+CREATING CONTROLLER FILE
+php artisan make:controller Article/ArticleController
+            make:model
+
+CONNECTING CONTROLLER AND ROUTE
+import the namespace of controller in web.php
+use App\Http\Controllers\Article\ArticleController;
+
+Route::get('articles', [ArticleController::class, 'index']);
+Route::get('articles/detail/{id}', [ArticleController::class, 'detail']);
+
+
+
+VIEW
+view template တွေကို resources/views folder ထဲမှာရေးရ
+
+
+
+
+CONNECTING CONTROLLER AND VIEW
+public function index() {
+        return view('articles/index'); // view('articles.index')
+    }
+
+view function ဖြင့် controller ကို view template နှင့်ချိတ်ဆက်ထားခြင်း
+
+
+
+IMPORTING DATA INTO VIEW 
+public function index() {
+        $data = [
+            ["id" => 1, "title" => "First Article"],
+            ["id" => 2, "title" => "Second Article"],
+        ];
+
+        return view('articles.index', [
+            'articles' => $data
+        ]);
+    }
+$articles ကို $data အဖြစ် index file ထဲသုံးလို့ရသွား
+
+
+
+
+BLADE ရေးထုံး
+
+@foreach($articles as $article)
+    <li>{{ $article['title] }}</li>
+@endforeach
+
+<?php foreach($articles as $article): ?>
+    <li><?php echo $article['title'] ?></li>
+ <?php endforeach ?>
+
+ <?php ?> === @
+ <?php echo ?> === {{ }}
+
+
+
+
+CONNECTING DATABASE WITH LARAVEL
+.env file မှာ database name ထည့်ရုံပဲ
+
+
+
+
+LARAVEL MIGRATION (table structure စီမံတဲ့နည်းပညာ)
+php artisan make:model Article -m (model file နှင့် migration file တွဲဆောက်ခြင်း)
+
+Object Relation Mapping (ORM) - SQL query တွေမသုံးဘဲ OOP code တွေနှင့် database data  တွေကို စီမံနိုင်သည့် နည်းပညာ
+eg. entity, doctrine, eloquent
+
+migration file ကိုတည်ဆောက်ပြီးပါက database/migrations/ ထဲမှာ up() ထဲမှာ table structure ကိုတည်ဆောက်‌ပေးရမယ်
+
+php artisan migrate
+php artisan migrate:fresh
+
+
+
+
+DATABASE SEEDING (sample data တွေ table ထဲထည့်‌ပေးခြင်း)
+php artisan make:factory ArticleFactory
+
+database/factories ထဲက definition() ထဲမှာ sample data မှာ ပါ၀င်ရမယ့် property တွေသတ်မှတ်
+ပြီးရင် database/seeders/ ထဲမှာ factory  သုံးပြီး table ထဲထည့်မဲ့ code ကိုရေး
+App/Models/User ဆိုတဲ့ path ကို ပြောင်းဖို့မမေ့ပါနှင့်
+
+php artisan db:seed

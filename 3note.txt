@@ -1,0 +1,32 @@
+LARAVEL MODEL RELATIONSHIP
+one to many
+hasMany
+one to one
+belongsTo
+
+_id = id
+
+
+LARAVEL AUTHORIZATION
+authorization (လုပ်ခွင့်ရှိမရှိ) 
+authentication (၀င်ခွင့်ရှိမရှိ)
+
+Middleware (request filter)
+eg. CSRF token, Auth
+
+Route::get('/articles', [ArticleController::class, 'index'])->middleware('auth')
+
+public function __construct() {
+    $this->middleware('auth')->except(['index', 'detail']);
+}
+
+@auth @endauth (ui ကို log in ၀င်မှပြ)
+@guest @endguest (ui ကို log out ဖြစ်ရင်ပြ)
+
+
+
+GATE & POLICIES
+gate - authorization rule နည်းရင်
+policies - authorization rule များရင်
+
+App/Providers/AppServiceProvider.php ထဲက boot() ထဲမှာ gate ကိုရေးရ

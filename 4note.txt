@@ -1,0 +1,69 @@
+API with LARAVEL
+php artisan install:api
+
+application - data input, ui output
+api - data input, data output
+
+Api မှာ session ကို မသုံး
+
+API URL PATTERN 
+/resource/id
+/resource/id/resource
+
+REST API (representational state transfer)
+action ကို မသုံးဘဲ HTTP Method  တွေကို သုံး (post, get, put, patch, delete)
+
+/routes/api.php
+Route::get('/categories', [ CategoryApiController::class, 'index']);
+Route::get('/categories/{id}', [ CategoryApiController::class, 'detail']);
+Route::post('/categories', [ CategoryApiController::class, 'create']);
+Route::put('/categories/{id}', [ CategoryApiController::class, 'update']);  // update all data
+Route::patch('/categories/{id}', [ CategoryApiController::class, 'update']); // update part of data
+Route::delete('/categories/{id}', [ CategoryApiController::class, 'delete']);
+
+LARAVLE API URL
+Route::apiResource('/categories', CategoryApiController::class);
+api.php ထဲမှာ ရှိတဲ့  route တွေကို @csrf, session တွေသုံးလို့မရ , rate limit ရှိ
+
+
+php artisan make:controller CategoryApiController --api --model=Category
+--api (http method တွေအသင့်ပါ၀င်သွား)
+index()
+store()
+show()
+update()
+destory()
+--model=Category (category model ကို import အသင့်လုပ်ပေး)
+
+
+API testing tools
+cURL
+Postman
+Insomnia
+
+GET /localhost:8000/categories ==> index()
+GET /localhost:8000/categories/{id} ==> show()
+POST /localhost:8000/categories ==> store()
+PUT /localhost:8000/categories/{id} ==> update()
+DELETE /localhost:8000/categories/{id} ==> destory()
+
+
+
+
+
+LARAVEL DEPLOYMENT
+project ကို web server မှာ setup လုပ်ရင် /public folder ကိုပဲ root အဖြစ်သတ်မှတ်ရ
+public folder is result
+
+local .env  and server .env is not same
+APP_ENV = local, production
+APP_URL = localhost, Domain Name
+APP_DEBUG = ture, false
+
+To run this command in project folder before publishing
+composer install -o --no-dev
+
+
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache

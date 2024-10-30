@@ -1,0 +1,35 @@
+INSTALLING UI PACKAGE
+composer require laravel/ui "4.*"
+
+
+
+BOOTSTRAP UI ကို သုံးမယ်လို့ကြေငြာခြင်း
+php artisan ui bootstrap --auth
+
+
+
+
+NPM (node package manager)
+frontend package, js package တွေကို စီမံပေးခြင်း
+
+npm install 
+download required frontend libraries
+
+npm run dev (always open)
+recompile css and js code in view with vite
+
+
+
+MASTER TEMPLATE
+resources/views/layouts/app.blade.php
+index.blade.php ထဲမှာ extends လုပ်ပြီးသုံး
+
+master template ကို ပြင်ချင်ရင် ပြင်လို့ရသေး
+
+PAGINATION LINKS (default tailwind)
+bootstrap ကိုပြောင်းဖို့ app/providers/AppServiceProvider ကိုပြောင်းဖို့လို
+
+
+
+CHANGING PROJECT NAME
+.env ထဲက APP_NAME=""
